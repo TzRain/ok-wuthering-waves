@@ -203,6 +203,9 @@ class BaseCombatTask(BaseTask, FindFeature, OCR, CombatCheck):
         if running:
             self.mouse_down(key='right')
         self.send_key_down(direction)
+        self.sleep(0.2)
+        self.middle_click()
+        self.sleep(0.2)
         f_found = self.wait_feature('pick_up_f', horizontal_variance=0.01, vertical_variance=0.01, threshold=0.8,
                                     wait_until_before_delay=0, time_out=time_out, raise_if_not_found=False)
         if f_found:
@@ -241,7 +244,7 @@ class BaseCombatTask(BaseTask, FindFeature, OCR, CombatCheck):
             return True
 
     def walk_until_f(self, direction='w', time_out=0, raise_if_not_found=True, backward_time=0):
-        self.middle_click() # reset camera before detect
+         # reset camera before detect
         if not self.find_one('pick_up_f', horizontal_variance=0.01, vertical_variance=0.01, threshold=0.8):
             if backward_time > 0:
                 if self.send_key_and_wait_f('s', raise_if_not_found, backward_time):
